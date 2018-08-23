@@ -1,0 +1,4 @@
+    			<% @likes.each do |like|  %>
+    				<% @user=User.find(like.user_id) %>
+    				<% @idea=Idea.find(like.idea_id) %>
+    				<% @count = Like.where(idea_id: @idea.id).count %>

@@ -1,0 +1,8 @@
+						<% if idea.user_id == @user.id %>
+							<form action="/idea/<%= @user.id %>/<% idea.id %>/delete_idea" method="POST">
+							<input class="wide_input" type='text', name="idea[content]" placeholder = "Post something witty here...">
+							<p></p>
+							<input class="form_button" type="submit" name="idea_button" id="idea_button" value = "Idea!">
+							<input type = 'hidden' name = "authenticity_token" value = "<%= form_authenticity_token %>">						
+							</form>
+						<% end %>

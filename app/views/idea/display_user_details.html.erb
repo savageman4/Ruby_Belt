@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<%= stylesheet_link_tag "user_playlist.css" %>
+	<title>Display User Details</title>
+</head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" Content="ie=edge">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="Customer_Reports.css">
+	<title>User Details</title>
+	<script>
+	</script>
+</head>
+<body>
+<body>
+	<div class="page_container">
+		<div class="heading_container">
+			<form class="form_button" action="/login/logout" method="POST">
+				<input class="form_button" type="submit" name="logout_button" id="logout_button" value = "Logout">
+				<input type = 'hidden' name = "authenticity_token" value = "<%= form_authenticity_token %>">							
+			</form>	
+			<h1 class="header_1">Name: <%= @user.name%></h1>
+			<h1 class="header_1">Alias: <%=@user.alias %></h1>
+			<h1 class="header_1">Email: <%=@user.email %></h1>
+			<% @countposts = Idea.where(user_id: @user.id).count %>
+			<% @countlikes = Like.where(user_id: @user.id).count %>
+			<h2> Total Number of Posts: <%= @countposts %>
+			<h2> Total Number of Likes: <%= @countlikes %>
+			<p class="header_1 header_spacer"></p>
+			<form class="form_button" action="/idea/display_ideas" method="POST">
+				<input class="form_button" type="submit" name="songlist_button" id="idea_button" value = "Ideas">
+				<input type = 'hidden' name = "authenticity_token" value = "<%= form_authenticity_token %>">							
+			</form>			
+		</div>	
+	          <% if flash[:notice] %>
+	            <% flash[:notice].each do |note| %>
+	            <p id="notice"><%= note %></p>  
+	            <% end %>
+	          <% end %>
+	          <% if flash[:error] %>
+	            <% flash[:error].each do |note| %>
+	            <p id="notice"><%= note %></p>  
+	            <% end %>
+	          <% end %>  
+	        </div> 
+		</div>
+	</div>
+</body>
+</html>

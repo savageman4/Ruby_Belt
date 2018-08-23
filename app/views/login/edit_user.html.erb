@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<%= stylesheet_link_tag "edit_user.css" %>
+  <title>Signin</title>        <div class="flash_container">
+          <% if flash[:notice] %>
+            <% flash[:notice].each do |note| %>
+            <p id="notice"><%= note %></p>  
+            <% end %>
+          <% end %>
+ 
+          <% if flash[:error] %>
+            <% flash[:error].each do |note| %>
+            <p id="notice"><%= note %></p>  
+            <% end %>
+          <% end %>  
+        </div> 
+</head>
+<body>
+  <div class="page_container"> 
+    <div class="reg_container"> 
+      <h1>Edit Your User Record</h1>
+        <form action = "/login/<%= @user.id %>/process_edit" method = "post">
+          <input class="form_line" type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
+          <label class="form_line">Name</label>
+          <input class="form_line" type = "text" name = "user[name]" value = "<%= @user.name %>">
+          <label class="form_line">Alias</label>
+          <input class="form_line" type = "text" name = "user[alias]" value = "<%= @user.alias %>">          
+          <label class="form_line">Email Address</label>
+          <input class="form_line" type="text" name="user[email]" value = "<%= @user.email %>">
+          <p></p>
+          <input class="form_line" type = "submit" value = "Update">
+        </form>
+        <p></p>
+        <p></p>
+        <p></p>
+    </div>
+ 
+  </div> 
+</body>
+</html>

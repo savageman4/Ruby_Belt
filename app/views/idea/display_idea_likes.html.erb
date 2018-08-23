@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<%= stylesheet_link_tag "idea_likes.css" %>
+	<title>Display Secrets</title>
+</head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" Content="ie=edge">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+	<title>Display Songs</title>
+	<script>
+	</script>
+</head>
+<body>
+<body>
+	<div class="page_container">
+		<div class="heading_container">
+			<h1 class="header_1"><%= @user.alias %> says: <%= @idea.content%></h1>
+			<p class="header_1 header_spacer"></p>
+
+			<form class="form_button" action="/idea/display_ideas" method="POST">
+				<input class="form_button" type="submit" name="songlist_button" id="songlist_button" value = "Ideas">
+				<input type = 'hidden' name = "authenticity_token" value = "<%= form_authenticity_token %>">							
+			</form>			
+			<form class="form_button" action="/login/logout" method="POST">
+				<input class="form_button" type="submit" name="logout_button" id="logout_button" value = "Logout">
+				<input type = 'hidden' name = "authenticity_token" value = "<%= form_authenticity_token %>">								
+			</form>	
+		</div>	
+        	<table class="table-striped table_bordered" style="width:80%">
+        		<tr> 
+     				<th>Name</th>
+    				<th>Times Added</th> 
+    				<th></th>  
+    			<tr/>
+
+    			<% @ideas.each do |user| %>
+    				<% count = Like.where(idea_id: @idea, user_id: user).count %>
+	    			<tr> 
+						<td><a class="name_line" href="/idea/<%= user.id %>/display_user_details"><%= user.alias %></a> <%= user.name %></td>
+						<td> <%= count %> </td>
+					</tr>
+				<% end %>	
+        	</table>
+	          <% if flash[:notice] %>
+	            <% flash[:notice].each do |note| %>
+	            <p id="notice"><%= note %></p>  
+	            <% end %>
+	          <% end %>
+	          <% if flash[:error] %>
+	            <% flash[:error].each do |note| %>
+	            <p id="notice"><%= note %></p>  
+	            <% end %>
+	          <% end %>  
+	        </div> 
+		</div>
+	</div>
+</body>
+</html>

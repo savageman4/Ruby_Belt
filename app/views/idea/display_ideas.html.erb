@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<%= stylesheet_link_tag "display_ideas.css" %>	
+	<title>Display Secrets</title>
+</head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" Content="ie=edge">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="Customer_Reports.css">
+	<title>Display Ideas</title>
+	<script>
+	</script>
+</head>
+<body>
+<body>
+	<div class="page_container">
+		<div class="heading_container">
+			<h1 class="header_1">Hi <%= @user.alias %> ! </h1>
+			<form class="form_button" action="/login/logout" method="POST">
+				<input class="form_button" type="submit" name="logout_button" id="logout_button" value = "Logout">
+				<input type = 'hidden' name = "authenticity_token" value = "<%= form_authenticity_token %>">							
+			</form>	
+			<form action="/idea/<%= @user.id %>/new_idea" method="POST">
+				<input class="wide_input" type='text', name="idea[content]" placeholder = "Post something witty here...">
+				<p></p>
+				<input class="form_button" type="submit" name="idea_button" id="idea_button" value = "Idea!">
+				<input type = 'hidden' name = "authenticity_token" value = "<%= form_authenticity_token %>">							
+			</form>
+		</div>	
+        	<table class="table-striped table_bordered" style="width:80%">
+        		<tr> 
+     				<th>Name</th>
+    				<th>Idea</th> 
+    				<th></th>
+    				<th># Likes</th>  
+    			<tr/>
+    			<% @ideas.each do |idea|  %>
+   					<%@count = Like.where(idea_id: idea.id).count %> 			    
+    				<% @useri=User.find(idea.user_id) %>
+    				<% @idea=Idea.find(idea.id) %>
+	    			<tr> 
+						<td><a class="name_line" href="/idea/<%= @useri.id %>/display_user_details"><%= @useri.alias %> </a></td>
+						<td class="narrow">says: <%= @idea.content %></td>
+						<td><a class="name_line" href="/idea/<%= @user.id %>/<%= @idea.id %>/like_idea"> Like </a></td>
+						<td><a class="name_line" href="/idea/<%= @useri.id %>/<%= @idea.id %>/display_idea_likes"><%= @count %> </a></td>
+						<td> people like this.</td>
+						<% if @idea.user_id == @user.id %>
+							<td><a class="name_line" href="/idea/<%= @idea.id %>/delete_idea">Delete</a></td>
+						<% end %>	
+					</tr>
+				<% end %>	
+        	</table>
+	          <% if flash[:notice] %>
+	            <% flash[:notice].each do |note| %>
+	            <p id="notice"><%= note %></p>  
+	            <% end %>
+	          <% end %>
+	          <% if flash[:error] %>
+	            <% flash[:error].each do |note| %>
+	            <p id="notice"><%= note %></p>  
+	            <% end %>
+	          <% end %>  
+	        </div> 
+		</div>
+	</div>
+</body>
+</html>

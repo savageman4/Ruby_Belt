@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html  lang="en">
+<head>
+	<title>Display Blocks</title>
+  <%= stylesheet_link_tag "blocks.css" %>
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'login_reg/David_Savage_Displaying_Blocks.css' %}"> -->
+</head>
+<body> 
+
+<form action = "/login/<%= @user.id %>/edit_user" method = "post">    
+    <input class="form_line" type = 'hidden' name = "authenticity_token" value = "<%=form_authenticity_token%>">
+    <input class="form_line" type = "submit" value = "Edit">
+</form>
+<p></p>
+<p></p>
+	<div class="Page_Container" "David Savage Display Blocks">
+		<div class="column_container_one">
+           	<img class="cat_picture_blue" src="<%= asset_path('codercat.jpg') %>" height="170" width="170">
+          	<img class="cat_picture_blue" src= "<%= asset_path('coder2.jpg') %>" height="170" width="170">
+            <img class="cat_picture_blue" src="<%= asset_path('cherry.jpg') %>" height="170" width="170">
+            <img class="cat_picture_blue" src="<%= asset_path('aidorucat.png') %>" height="170" width="170">
+		</div>
+		<div class="column_container_two">
+           	<img class="cat_picture_red" src="<%= asset_path('heisencat.png') %>" height="170" width="170">
+           	<img class="cat_picture_red" src="<%= asset_path('riddlocat.png') %>" height="170" width="170">	
+            <img class="cat_picture_red" src="<%= asset_path('oktobercat.png') %>" height="170" width="170">
+            <img class="cat_picture_red" src="<%= asset_path('domo-cat.png') %>" height="170" width="170">
+		</div>              
+		<div class="column_container_three">
+           	<img class="cat_picture_blue" src="<%= asset_path('linkcat.png') %>" height="170" width="170">
+            <img class="cat_picture_blue" src="<%= asset_path('chellocat.jpg') %>" height="170" width="170">	
+            <img class="cat_picture_blue" src="<%= asset_path('mario.png') %>" height="170" width="170">
+            <img class="cat_picture_blue" src="<%= asset_path('kantana.jpg') %>" height="170" width="170">
+		</div>     
+		<div class="column_container_four" height="170" width="170">
+           	<img class="cat_picture_red" src="<%= asset_path('ironcat.png') %>" height="170" width="170">
+            <img class="cat_picture_red" src="<%= asset_path('stormtroopocat.png') %>"height="170" width="170">	
+            <img class="cat_picture_red" src="<%= asset_path('ironcat.png') %>" height="170" width="170">
+            <img class="cat_picture_red" src="<%= asset_path('daftpunk.gif') %>" height="170" width="170">
+    </div>
+		<div class="column_container_five">
+           	<img class="cat_picture_blue" src="<%= asset_path('defunktocat.png') %>" height="170" width="170">
+            <img class="cat_picture_blue" src="<%= asset_path('visionary.jpg') %>" height="170" width="170">	
+            <img class="cat_picture_blue" src="<%= asset_path('jean-luc-picat.jpg') %>" height="170" width="170">
+            <img class="cat_picture_blue" src="<%= asset_path('codercat.jpg') %>" height="170" width="170">
+      </div>
+    <div>
+    <h2> <%= @user.name %>  <%= @user.alias %></h2>
+    <% if flash[:notice] %>
+      <% flash[:notice].each do |note| %>
+      <p id="notice"><%= note %></p>  
+      <% end %>
+    <% end %>      
+    </div>  
+	</div>
+  <div> 
+    <audio id="audiotag1" src="{% static 'login_reg/dogbarking.wav' %}" preload="auto"></audio>
+<!--     <a href="javascript:play_single_sound();">Play 5-sec sound on single channel</a> -->
+  </div>
+
+  <script type="text/javascript">
+
+    document.onclick = function(z){
+      console.log(z);
+      document.getElementById('audiotag1').play();
+    }
+    document.onkeydown = function(x){
+      console.log(x);
+    }
+
+
+  </script>
+
+</body>
+</html>

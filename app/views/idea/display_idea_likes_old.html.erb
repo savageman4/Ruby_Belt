@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<%= stylesheet_link_tag "song_likes.css" %>
+	<title>Display Idea Likes</title>
+</head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" Content="ie=edge">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="Customer_Reports.css">
+	<title>Display Songs</title>
+	<script>
+	</script>
+</head>
+<body>
+<body>
+	<div class="page_container">
+		<div class="heading_container">
+			<h1 class="header_1">Song: <%= @song.title%> - Artist: <%=@song.artist %></h1>
+			<p class="header_1 header_spacer"></p>
+
+			<form class="form_button" action="/songs/<%= session[:user_id] %>/songlist" method="POST">
+				<input class="form_button" type="submit" name="songlist_button" id="songlist_button" value = "Dashboard">
+				<input type = 'hidden' name = "authenticity_token" value = "<%= form_authenticity_token %>">							
+			</form>			
+			<form class="form_button" action="/login/logout" method="POST">
+				<input class="form_button" type="submit" name="logout_button" id="logout_button" value = "Logout">
+				<input type = 'hidden' name = "authenticity_token" value = "<%= form_authenticity_token %>">								
+			</form>	
+		</div>	
+        	<table class="table-striped table_bordered" style="width:80%">
+        		<tr> 
+     				<th>Name</th>
+    				<th>Times Added</th> 
+    				<th></th>  
+    			<tr/>
+    			<% @playlist.each do |playlist|  %>
+    				<% @user=User.find(playlist.user_id) %>
+    				<% @song=Song.find(playlist.song_id) %>
+    				<% @count = PlayList.where(song_id: @song.id).count %>
+	    			<tr> 
+						<td><a class="name_line" href="/songs/<%= @user.id %>/user_playlist"><%= @user.first_name %> <%= @user.last_name %></a></td>
+						<td> <%= @count %> </td>
+					</tr>
+				<% end %>	
+        	</table>
+	          <% if flash[:notice] %>
+	            <% flash[:notice].each do |note| %>
+	            <p id="notice"><%= note %></p>  
+	            <% end %>
+	          <% end %>
+	          <% if flash[:error] %>
+	            <% flash[:error].each do |note| %>
+	            <p id="notice"><%= note %></p>  
+	            <% end %>
+	          <% end %>  
+	        </div> 
+		</div>
+	</div>
+</body>
+</html>
